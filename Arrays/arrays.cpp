@@ -86,6 +86,16 @@ int LinearSearch(struct Array *arr, int key) {
     return -1;
 }
 
+void sortArray(struct Array *arr) {
+    for (int i=0;i<arr->length-1;i++) {
+        for (int j=i+1;j<arr->length;j++) {
+            if (arr->A[i] > arr->A[j]) {
+                swap(&arr->A[i], &arr->A[j]);
+            }
+        }
+    }
+}
+
 // Binary Search
 int BinarySearch(struct Array arr, int key) {
     int l = 0;  // low
@@ -93,7 +103,7 @@ int BinarySearch(struct Array arr, int key) {
     int mid;    // middle
     while (l <= h) {
         mid = (l+h)/2;
-        if (mid == key) {
+        if (arr.A[mid] == key) {
             cout << "Element " << key << " found at index " << mid << endl;
             break;
         } else if (key < mid) {
@@ -124,14 +134,15 @@ int RBinarySearch(int a[], int l, int h, int key) {
 int main() {
     struct Array arr;
     createArray(&arr);
-    display(&arr, arr.length);
-    append(&arr, 10);
-    display(&arr, arr.length);
-    insert(&arr, 2, 20);
-    display(&arr, arr.length);
-    deleteElement(&arr, 3);
+    // display(&arr, arr.length);
+    // append(&arr, 100);
+    // display(&arr, arr.length);
+    // insert(&arr, 2, 20);
+    // display(&arr, arr.length);
+    // deleteElement(&arr, 3);
 
-    int key = 3;
+    sortArray(&arr);
+    int key = 5;
     BinarySearch(arr, key);
     display(&arr, arr.length);
     
