@@ -86,6 +86,41 @@ int LinearSearch(struct Array *arr, int key) {
     return -1;
 }
 
+// Binary Search
+int BinarySearch(struct Array arr, int key) {
+    int l = 0;  // low
+    int h = arr.length-1;   // high
+    int mid;    // middle
+    while (l <= h) {
+        mid = (l+h)/2;
+        if (mid == key) {
+            cout << "Element " << key << " found at index " << mid << endl;
+            break;
+        } else if (key < mid) {
+            h = mid - 1;
+        } else {
+            l = mid + 1;
+        }
+    }
+    return -1;
+}
+
+// Recursive Binary Search
+int RBinarySearch(int a[], int l, int h, int key) {
+    int mid;
+    if (l <= h) {
+        mid = (l+h)/2;
+        if (key == a[mid]) {
+            return mid;
+        } else if (key < a[mid]) {
+            return RBinarySearch(a, l, mid-1, key);
+        } else {
+            return RBinarySearch(a, mid+1, h, key);
+        }
+    }
+    return -1;
+}
+
 int main() {
     struct Array arr;
     createArray(&arr);
@@ -96,8 +131,8 @@ int main() {
     display(&arr, arr.length);
     deleteElement(&arr, 3);
 
-    int key = 10;
-    int index = LinearSearch(&arr, key);
+    int key = 3;
+    BinarySearch(arr, key);
     display(&arr, arr.length);
     
     return 0;
