@@ -46,40 +46,45 @@ void sortArray(struct Array *arr) {
     }
 }
 
-int main() {
-    struct Array arr1;
-    createArray(&arr1);
-    display(&arr1, arr1.length);
-
-    struct Array arr2;
-    createArray(&arr2);
-    display(&arr2, arr2.length);
-
-    struct Array arr3;
-
-    sortArray(&arr1);
-    sortArray(&arr2);
-
+void MergeArrays(struct Array *arr1, struct Array *arr2, struct Array *arr3) {
     int i=0, j=0, k=0;
-    int m = arr1.length;
-    int n = arr2.length;
+    int m = arr1->length;
+    int n = arr2->length;
     while (i<m && j<n) {
-        if (arr1.A[i] < arr2.A[j]) {
-            arr3.A[k++] = arr1.A[i++];
+        if (arr1->A[i] < arr2->A[j]) {
+            arr3->A[k++] = arr1->A[i++];
         } else {
-            arr3.A[k++] = arr2.A[j++];
+            arr3->A[k++] = arr2->A[j++];
         }
     }
 
     for (;i<m;i++) {
-        arr3.A[k++] = arr1.A[i];
+        arr3->A[k++] = arr1->A[i];
     }
 
     for (;j<n;j++) {
-        arr3.A[k++] = arr2.A[j];
+        arr3->A[k++] = arr2->A[j];
     }   
 
-    arr3.length = m+n;
+    arr3->length = m+n;
+}
+
+int main() {
+    struct Array arr1, arr2, arr3;
+    createArray(&arr1);
+    createArray(&arr2);
+    sortArray(&arr1);
+    sortArray(&arr2);
+
+    cout << "Array 1: ";
+    display(&arr1, arr1.length);
+    cout << "Array 2: ";
+    display(&arr2, arr2.length);
+
+    arr3.size = arr2.size + arr1.size;
+    arr3.length = 0;
+    MergeArrays(&arr1, &arr2, &arr3);
+    cout << "Merged Array: ";
     display(&arr3, arr3.length);
 
     return 0;
