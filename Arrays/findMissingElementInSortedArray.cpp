@@ -58,6 +58,22 @@ int findMissingElementM3(int A[], int length) {
     return -1;  // Return -1 if no missing element is found (although there should be one)
 }
 
+// Finding multiple missing elements in a sorted array
+// Time complexity: O(n)
+int findMultipleMissingElements(int A[], int length) {
+    int diff = A[0] - 0; // Calculate the initial difference (A[0] - 0)
+
+    // Iterate through the array to find the missing elements
+    for(int i =0; i < length; i++) {
+        if (A[i] - i != diff) {  // Check if the difference is not consistent
+            while (diff < A[i] - i) {
+                cout << "Missing element is: " << i + diff << endl;
+                diff++;
+            }
+        }
+    }
+}
+
 int main() {
 
     // Test case 1
@@ -71,6 +87,10 @@ int main() {
     // Test case 3
     int C[] = {100, 200, 300, 400, 600, 700, 800};
     findMissingElementM3(C, 7);  // Missing element should be 500
+
+    // Test case 4
+    int D[] = {6, 7, 8, 9, 11, 12, 15, 16, 17};
+    findMultipleMissingElements(D, 9);  // Missing elements should be 10, 13, 14
 
     return 0;
 }
