@@ -140,7 +140,7 @@ void reverseArrayM2() {
     int *B;
     int i, j;
     B = new int[length];
-
+    // Copying elements from A to B in reverse order 
     for(i = length - 1, j = 0; i >= 0; i--, j++) {
         B[j] = A[i];
     }
