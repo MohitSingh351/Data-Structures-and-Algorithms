@@ -74,23 +74,76 @@ int findMultipleMissingElements(int A[], int length) {
     }
 }
 
+int maxElement(int A[], int length) {
+    int max = A[0];
+    for (int i = 1; i < length; i++) {
+        if (A[i] > max) {
+            max = A[i];
+        }
+    }
+    return max;
+}
+int minElement(int A[], int length) {
+    int min = A[0];
+    for (int i = 1; i < length; i++) {
+        if (A[i] < min) {
+            min = A[i];
+        }
+    }
+    return min;
+}
+
+// Finding multiple missing elements using hashing
+// Time complexity: O(n)
+void findMissingElementUsingHashing(int A[], int length) {
+    int max = maxElement(A, length);
+    int min = minElement(A, length);
+
+    int *H = new int[max + 1];  // Create a hash table with the size of the maximum element
+    int h_length = max + 1;
+    for(int i=0; i<h_length; i++) {
+        H[i] = 0;  // Initialize all elements to 0
+    }
+    for (int i=0; i<length; i++){
+        H[A[i]]++;  // Increment the count of the element in the hash table
+    }
+    for (int i=1; i < h_length; i++) {
+        if (H[i] == 0) {
+            cout << "Missing element is: " << i << endl;
+        }
+    }
+    delete[] H;
+}
+
 int main() {
 
     // Test case 1
     int A[] = {1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14};
     findMissingElementM1(A, 13);  // Missing element should be 8
 
+    cout << endl;
+
     // Test case 2
     int B[] = {10, 11, 12, 14, 15, 16};
     findMissingElementM2(B, 6);  // Missing element should be 13
+
+    cout << endl;
 
     // Test case 3
     int C[] = {100, 200, 300, 400, 600, 700, 800};
     findMissingElementM3(C, 7);  // Missing element should be 500
 
+    cout << endl;
+
     // Test case 4
     int D[] = {6, 7, 8, 9, 11, 12, 15, 16, 17};
     findMultipleMissingElements(D, 9);  // Missing elements should be 10, 13, 14
+
+    cout << endl;
+
+    // Test case 5
+    int E[] = {3, 7, 4, 9, 12, 6, 1, 11, 2, 10};
+    findMissingElementUsingHashing(E, 10);  // Missing elements should be 5, 8
 
     return 0;
 }
